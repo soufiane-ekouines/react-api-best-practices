@@ -6,8 +6,7 @@ import { useEffect } from 'react';
 
 const DefaultLayout = () => {
 
-    const { user, token, setToken, setUser } = useStateContext()
-
+    const { notification,user, token, setToken, setUser } = useStateContext()
     if (!token) {
         return <Navigate to={'/login'} />
     }
@@ -46,11 +45,11 @@ const DefaultLayout = () => {
                 <main>
                     <Outlet />
                 </main>
-                {/* {notification &&
+                {notification &&
             <div className="notification">
               {notification}
             </div>
-          } */}
+          }
             </div>
         </div>
     );

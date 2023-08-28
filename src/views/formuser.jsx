@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import {  useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiocClient from '../axios-client';
+import { useStateContext } from '../context/ContextProvider';
 
 const Formuser = () => {
 
@@ -16,7 +17,7 @@ const Formuser = () => {
     })
     const [loading, setLanding] = useState(false);
     const [errors, setErrors] = useState(null);
-
+    const { setUserNotification } = useStateContext();
     let { id } = useParams();
 
     if (id) {
@@ -40,22 +41,25 @@ const Formuser = () => {
         ev.preventDefault()
 
         if (user.id) {
-            axiocClient.put('/user/' + user.id,user).then(({ data }) => {
+            axiocClient.put('/user/' + user.id, user).then(({ data }) => {
+                setUserNotification('user is updateted')
                 navigate('/users')
             }).catch((err) => {
                 response = err.response;
                 if (response && response.status === 422) {
                     setErrors(response.data.errors)
-                  }
+                }
             })
         } else {
-            axiocClient.post('/user',user).then(({ data }) => {
+            axiocClient.post('/user', user).then(({ data }) => {
+                setUserNotification('user is created')
                 navigate('/users')
+
             }).catch((err) => {
                 response = err.response;
                 if (response && response.status === 422) {
                     setErrors(response.data.errors)
-                  }
+                }
             })
         }
     }
