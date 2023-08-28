@@ -6,6 +6,7 @@ import NotFound from "./views/NotFound";
 import DefaultLayout from "./components/DefaultLayout";
 import GuestLayouts from "./components/GuestLayouts";
 import { Children } from "react";
+import Formuser from "./views/formuser";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,14 @@ const router = createBrowserRouter([
             {
                 path: '/users',
                 element: <Users />
+            },
+            {
+                path: '/user/:id',
+                element: <Formuser />
+            },
+            {
+                path: '/new',
+                element: <Formuser />
             },
         ]
     },
